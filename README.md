@@ -52,6 +52,17 @@ The examples in this repository require at least `1.0.0-SNAPSHOT`. To enable sna
 
 ### Chat Modal
 
+The Chat Modal is a simple request handler that will call the chat completions api to generate a dad joke on a given topic. 
+
+```java
+@GetMapping("/dad-jokes")
+public String jokes(@RequestParam(value = "topic", defaultValue = "Dogs") String topic) {
+    PromptTemplate promptTemplate = new PromptTemplate("Tell me a dad joke about {topic}");
+    Prompt prompt = promptTemplate.create(Map.of("topic", topic));
+    return chatClient.call(prompt).getResult().getOutput().getContent();
+}
+```
+
 ### Image Modal
 
 ### Audio Modal
